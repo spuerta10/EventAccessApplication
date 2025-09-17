@@ -35,7 +35,7 @@ Se requiere de una arquitectura extensible, ya que se ha pensado tambien en la c
 - Malo: Los plugins se acoplan a los formatos/protocolos de comunicación definidos por el core. Esto implica que, a medida que aumentan los casos de uso (ej. NFC offline, BLE, QR vía app), se requiere adaptar los plugins o ampliar el core, generando cierta fricción.
 - Malo: El aislamiento del core no es tan explícito como en otros estilos (ej. hexagonal). La validación puede terminar con dependencias implícitas hacia la forma en que los plugins le envían datos.
 
-### Microkernel + hexagonal (seleccionada)
+### Hexagonal + microkernel (seleccionada)
 Hexagonal me permite el aislamiento del core mediante contratos (ports). Microkernel ya que el core es pequeño y estable, ademas, todas las demas conexiones seran plugins.
 - Bueno: Altisima extensibilidad, permitiendo añadir nuevos modulos sin necesidad de modificar el core.
 - Bueno: Los puertos definen contratos (abstracciones) para hablar con el core, no les importa el protocolo de comunicacion, solo que el contrato definido para la comunicacion se respete.
