@@ -1,4 +1,4 @@
-# Offline Ticket Validation
+# Offline Changes Propagation
 ## Descripcion
 El miembro del staff utiliza la aplicación móvil para validar la entrada de un usuario, quien comparte su credencial (ticket) mediante NFC. La app ejecuta la validación a través del core local y actualiza el estado del ticket en la base de datos interna. Luego, el cambio se propaga entre los dispositivos del staff conectados al mismo gate/zona mediante un protocolo de gossip, asegurando que todos los nodos mantengan un estado sincronizado aun sin conexión a internet.
 ## Diagrama de clases
