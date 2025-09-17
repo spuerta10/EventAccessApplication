@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" pages="3">
     <diagram name="Core functions" id="qubiRUcbB-Ls4f5PZgBK">
-        <mxGraphModel dx="412" dy="454" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="652" dy="454" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -44,7 +44,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="wY3aJDX8uMD-tdUTQbUa" name="Domain model">
-        <mxGraphModel dx="692" dy="454" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="652" dy="454" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -166,10 +166,152 @@
         </mxGraphModel>
     </diagram>
     <diagram id="MqXSZWyo-PQy6l7h7F5p" name="Reference architecture">
-        <mxGraphModel dx="692" dy="454" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1185" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-1" value="" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="279.5" y="170" width="459.19" height="310" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-2" value="" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="416.1" y="230.75" width="186" height="124" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-3" value="Domain" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="479.1" y="234.75" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-4" value="Entities" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="469.1" y="272.75" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-5" value="Credentials&lt;div&gt;RepositoryPort&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-82.5;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="260" y="231" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-6" value="Attendance&lt;div&gt;RepositoryPort&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-97.5;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="260.0044633646353" y="387.0036794683489" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-7" value="Gate&lt;br&gt;&lt;div&gt;RepositoryPort&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-97.5;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="664.0044633646353" y="230.75367946834893" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-8" value="Fraud&lt;div&gt;DetectionPort&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-82.5;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="664.0044633646353" y="387.0036794683489" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-9" value="&lt;div&gt;&amp;lt;&amp;lt;use case&amp;gt;&amp;gt;&lt;/div&gt;Fraud Detection" style="rounded=1;whiteSpace=wrap;html=1;rotation=0;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="534.0049014120845" y="416.9972431947061" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-11" target="vauaYqcV6kWrWACm9Mwq-5">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-11" value="&lt;div&gt;&amp;lt;&amp;lt;use case&amp;gt;&amp;gt;&lt;/div&gt;Register ticket" style="rounded=1;whiteSpace=wrap;html=1;rotation=0;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="461.85" y="180" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-15" target="vauaYqcV6kWrWACm9Mwq-9">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-15" target="vauaYqcV6kWrWACm9Mwq-17">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="451" y="384"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" target="vauaYqcV6kWrWACm9Mwq-5">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="451.29999999999995" y="421" as="sourcePoint"/>
+                        <mxPoint x="320.15336709845405" y="276.6526196995046" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="451" y="384"/>
+                            <mxPoint x="380" y="384"/>
+                            <mxPoint x="380" y="273"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-15" value="&lt;div&gt;&amp;lt;&amp;lt;use case&amp;gt;&amp;gt;&lt;/div&gt;Log In Attendance" style="rounded=1;whiteSpace=wrap;html=1;rotation=0;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="404" y="417" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-17" target="vauaYqcV6kWrWACm9Mwq-7">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="654" y="384"/>
+                            <mxPoint x="654" y="249"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-17" value="&lt;div&gt;&amp;lt;&amp;lt;use case&amp;gt;&amp;gt;&lt;/div&gt;Manage Gate and Zone" style="rounded=1;whiteSpace=wrap;html=1;rotation=0;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="461.85" y="368" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.336;entryY=-0.101;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-9" target="vauaYqcV6kWrWACm9Mwq-8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.339;entryY=1.024;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-15" target="vauaYqcV6kWrWACm9Mwq-6">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-21" target="vauaYqcV6kWrWACm9Mwq-28">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-21" value="Register tickets&amp;nbsp;&lt;div&gt;app&lt;/div&gt;" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.smartphone;" vertex="1" parent="1">
+                    <mxGeometry x="40.5" y="272.75" width="31.8" height="53" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-23" target="vauaYqcV6kWrWACm9Mwq-5">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="240" y="170"/>
+                            <mxPoint x="240" y="222"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-23" value="Tickets DB adapter" style="rounded=1;whiteSpace=wrap;html=1;rotation=0;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="120" y="153.88" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-25" target="vauaYqcV6kWrWACm9Mwq-23">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-25" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="26.39999999999999" y="140" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-26" value="Tickets&amp;nbsp;&lt;div&gt;database&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="21.39999999999999" y="200" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-28" target="vauaYqcV6kWrWACm9Mwq-5">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-28" value="Mobile App controller" style="rounded=1;whiteSpace=wrap;html=1;rotation=0;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="120" y="283.13" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-30" target="vauaYqcV6kWrWACm9Mwq-32">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-30" value="Fraud detection&lt;div&gt;app&lt;/div&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.traditional_server;" vertex="1" parent="1">
+                    <mxGeometry x="900" y="371.63" width="36.35" height="63" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-32" target="vauaYqcV6kWrWACm9Mwq-8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-32" value="Fraud detection&lt;div&gt;controller&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;rotation=0;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="387" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-34" target="vauaYqcV6kWrWACm9Mwq-35">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-34" value="Staff mobile&lt;div&gt;app&lt;/div&gt;" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.smartphone;" vertex="1" parent="1">
+                    <mxGeometry x="902.27" y="210" width="31.8" height="53" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-35" value="Mobile App controller" style="rounded=1;whiteSpace=wrap;html=1;rotation=0;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="770" y="220.38" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.975;entryY=0.216;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-35" target="vauaYqcV6kWrWACm9Mwq-1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-38" target="vauaYqcV6kWrWACm9Mwq-40">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-38" value="Staff mobile&lt;div&gt;app&lt;/div&gt;" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.smartphone;" vertex="1" parent="1">
+                    <mxGeometry x="40.5" y="406.63" width="31.8" height="53" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="vauaYqcV6kWrWACm9Mwq-40" target="vauaYqcV6kWrWACm9Mwq-1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="vauaYqcV6kWrWACm9Mwq-40" value="Mobile App controller" style="rounded=1;whiteSpace=wrap;html=1;rotation=0;imageAspect=1;" vertex="1" parent="1">
+                    <mxGeometry x="120" y="417" width="94.5" height="32.25" as="geometry"/>
+                </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
