@@ -1,6 +1,6 @@
 # ADR 1: Uso del estilo de arquitectura microkernal + hexagonal
 - Estado: propuesto
-- Responsables: spuertaf@eafit.edu.co
+- Responsables: mrodriguev@eafit.edu.co, spuertaf@eafit.edu.co
 - Fecha: 2025-sept-15
 ## Contexto y planteamiento del problema
 Event Access Application pretende ser una aplicacion que facilita el acceso a eventos masivos. Los usuarios registran (dan de alta) una entrada o acceso en la aplicacion, posteriomente, en el dia del evento un miembro del Staff registra su asistencia.
