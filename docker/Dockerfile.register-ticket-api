@@ -1,0 +1,12 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY .env .
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src/register_ticket_api/ ./register_tickets_api/
+
+CMD ["python", "register_tickets_api/main.py"]
