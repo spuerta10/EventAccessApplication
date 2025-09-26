@@ -48,6 +48,10 @@ class TicketService:
                 seat=ticket.seat,
                 gate=ticket.gate
             )
+            logger.info(
+                f"Ticket {existent_ticket.id} successfully registered for user={username}, "
+                f"seed={existent_ticket.seed}"
+            )
         except DbOperationException as err:
             logger.exception(f"Database error while registering ticket seat={ticket.seat}, gate={ticket.gate} -> {err}")
             raise AppValidationException(f"Error registering ticket: {err}") from err
