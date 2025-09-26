@@ -1,7 +1,9 @@
 from fastapi import APIRouter, HTTPException, status
+from loguru import logger
 
 from services import TicketService
 from entities import Ticket, AttendanceLog
+from exceptions import AppValidationException
 
 class TicketsController:
     def __init__(self, ticket_service: TicketService):
@@ -28,8 +30,11 @@ class TicketsController:
         )
 
     async def register_ticket(self, username: str, ticket: Ticket):  # TODO: Change for user_id
+        logger.info(f"Request received at /tickets for username={username}, seat={ticket.seat}, gate={ticket.gate}")
         try:
             return await self.__ticket_service.register_ticket(username, ticket)
+        except AppValidationException as err:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
         except Exception as err:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -37,6 +42,7 @@ class TicketsController:
             ) from err
 
     async def log_attendance(self, attendance: AttendanceLog) -> Ticket:
+        logger.info(f"Request received at /tickets for seat={attendance.seat}, gate={attendance.gate}, totp={attendance.totp_code}")
         try:
             return await self.__ticket_service.log_attendance(attendance)
         except Exception as e:
