@@ -13,6 +13,17 @@ services:
     networks:
       - event-net
   
+  register-ticket-api:
+    build:
+      context: .. # root folder
+      dockerfile: docker/Dockerfile.register-ticket-api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    networks:
+      - event-net
+
 networks:
   event-net:
     driver: bridge
