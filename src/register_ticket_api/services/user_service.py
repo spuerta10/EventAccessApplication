@@ -23,10 +23,10 @@ class UserService:
             created: bool = await self.user_repo.create_user(new_user)
             if not created:
                 raise AppValidationException("Error creating user.")
-            existent_user: Optional[User] = await self.user_repo.get_by_username(new_user.username)
+            created_user: Optional[User] = await self.user_repo.get_by_username(new_user.username)
         except DbOperationException as err:
             raise AppValidationException(f"Error creating user: {err}") from err
-        return existent_user
+        return created_user
 
     def __is_valid_user_details(self, user: User) -> tuple[bool, str]:
         USERNAME_PATTERN: str = r'^[A-Za-z0-9_-]{3,10}$'  # letras, números, guion y guion bajo. De 3 a 10 caracteres
