@@ -1,11 +1,12 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any
 from uuid import UUID
 
-from interfaces import ITicketRepository
-from infraestructure import PostgreSQLDbContext
-from entities import User, Ticket
+from entities import Ticket, User
 from exceptions import DbOperationException
+from infraestructure import PostgreSQLDbContext
+from interfaces import ITicketRepository
+
 
 @dataclass
 class TicketRepository(ITicketRepository):
@@ -15,24 +16,21 @@ class TicketRepository(ITicketRepository):
         SP_NAME: str = "sp_register_ticket_to_user"
         registered: bool = False
         try:
-           db_conn = await self.db_context.get_connection()
-           params: tuple[str] = (
-               ticket.id,  # p_ticket_id
-               user.id,  # p_user_id
-           )
-           rows_affected = await db_conn.execute(
-               f"CALL {SP_NAME}($1, $2)", *params
-           )
-           if rows_affected != 0:
-               registered = True
+            db_conn = await self.db_context.get_connection()
+            params: tuple = (
+                ticket.id,  # p_ticket_id
+                user.id,  # p_user_id
+            )
+            rows_affected = await db_conn.execute(f"CALL {SP_NAME}($1, $2)", *params)
+            if rows_affected != 0:
+                registered = True
         except Exception as e:
-           raise DbOperationException(f"Error obtaining database connection: {e}") from e
+            raise DbOperationException(e) from e
         return registered
 
-    
-    async def get_by_ticket_details(self, seat: str, gate: str) -> Optional[Ticket]:
+    async def get_by_ticket_details(self, seat: str, gate: str) -> Ticket | None:
         DB_QUERY: str = """
-        SELECT 
+        SELECT
             t.ticket_id AS id,
             t.user_id,
             t.seat,
@@ -50,20 +48,17 @@ class TicketRepository(ITicketRepository):
             db_conn = await self.db_context.get_connection()
             row = await db_conn.fetchrow(DB_QUERY, seat, gate)
         except Exception as e:
-            raise DbOperationException(f"Error obtaining database connection: {e}") from e
+            raise DbOperationException(e) from e
         if row:
             return Ticket(**row)
         return None
-    
-    async def mark_ticket_as_used(self, ticket_id: UUID) -> bool:
+
+    async def mark_ticket_as_used(self, ticket_id: UUID) -> Any[bool]:
         FN_NAME: str = "fn_mark_ticket_as_used"
         try:
-           db_conn = await self.db_context.get_connection()
-           print(ticket_id)
-           rows_affected = await db_conn.fetchval(
-               f"SELECT {FN_NAME}($1)", ticket_id
-           )
-           print(rows_affected)
-           return rows_affected
+            db_conn = await self.db_context.get_connection()
+            rows_affected = await db_conn.fetchval(f"SELECT {FN_NAME}($1)", ticket_id)
         except Exception as e:
-           raise DbOperationException(f"Error obtaining database connection: {e}") from e
+            raise DbOperationException(e) from e
+        else:
+            return rows_affected
