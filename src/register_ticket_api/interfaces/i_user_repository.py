@@ -1,13 +1,14 @@
 from abc import ABC, abstractmethod
+from collections.abc import Awaitable
 
 from entities import User
 
 
 class IUserRepository(ABC):
     @abstractmethod
-    def create_user(self, new_user: User) -> bool:
+    async def create_user(self, new_user: User) -> Awaitable[bool]:
         pass
 
     @abstractmethod
-    def get_by_username(self, username: str) -> User | None:
+    async def get_by_username(self, username: str) -> Awaitable[User | None]:
         pass
