@@ -1,9 +1,9 @@
-from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, SecretStr
 
+
 class User(BaseModel):
-    id: Optional[UUID]
+    id: UUID | None
     username: str
-    password: Optional[SecretStr]
+    password: SecretStr | None
