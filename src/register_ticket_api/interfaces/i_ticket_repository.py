@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from collections.abc import Awaitable
 from uuid import UUID
 
 from entities import Ticket, User
@@ -6,14 +7,14 @@ from entities import Ticket, User
 
 class ITicketRepository(ABC):
     @abstractmethod
-    def register_ticket(self, user: User, ticket: Ticket) -> bool:
+    async def register_ticket(self, user: User, ticket: Ticket) -> Awaitable[bool]:
         pass
 
     @abstractmethod
-    def get_by_ticket_details(self, seat: str, gate: str) -> Ticket | None:
+    async def get_by_ticket_details(self, seat: str, gate: str) -> Awaitable[Ticket | None]:
         # TODO: In the long run this will fail due to the abscence of an event entity
         pass
 
     @abstractmethod
-    def mark_ticket_as_used(self, ticket_id: UUID) -> bool:
+    async def mark_ticket_as_used(self, ticket_id: UUID) -> Awaitable[bool]:
         pass
