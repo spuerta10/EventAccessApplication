@@ -19,7 +19,7 @@ class TOTPGenerator:
         return str(self.__totp.now())
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     parser = ArgumentParser(description="Genera un código TOTP desde una semilla hexadecimal")
     parser.add_argument("seed", type=str, help="Seed en hexadecimal (sin 0x)")
     args = parser.parse_args()
