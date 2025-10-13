@@ -9,6 +9,8 @@ class TOTPGenerator:
     TOTP_INTERVAL_SECONDS: ClassVar[int] = 60
 
     def __init__(self, seed_base64: str) -> None:
+        if not seed_base64:
+            raise ValueError("Seed cannot be empty")
         bytes_seed: bytes = b64decode(seed_base64)
         seed_base32 = b32encode(bytes_seed).decode("utf-8")
         self.__totp = TOTP(seed_base32, interval=self.TOTP_INTERVAL_SECONDS)
