@@ -1,9 +1,8 @@
+from controllers import TicketsController
 from fastapi import FastAPI
-
 from infraestructure import PostgreSQLDbContext
 from repositories import TicketRepository, UserRepository
 from services import TicketService
-from controllers import TicketsController
 
 app = FastAPI()
 
@@ -15,7 +14,7 @@ tickets_controller = TicketsController(ticket_service=ticket_service)
 
 app.include_router(tickets_controller.router)
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
 
+    uvicorn.run(app, host="0.0.0.0", port=8000)  # noqa S104
