@@ -1,5 +1,3 @@
 from controllers.tickets_controller import TicketsController
 
-__all__ = [
-    "TicketsController"
-]
+__all__ = ["TicketsController"]

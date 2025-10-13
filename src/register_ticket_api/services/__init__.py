@@ -1,7 +1,4 @@
-from services.user_service import UserService
 from services.ticket_service import TicketService
+from services.user_service import UserService
 
-__all__ = [
-    "UserService",
-    "TicketService"
-]
+__all__ = ["TicketService", "UserService"]
