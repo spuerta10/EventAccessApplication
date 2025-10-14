@@ -3,9 +3,9 @@ services:
   postgres:
     image: postgres:latest
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: ADMIN  # define in execution time
-      POSTGRES_DB: event_access
+      POSTGRES_USER: {POSTGRES_USER}
+      POSTGRES_PASSWORD: {POSTGRES_PASSWORD}  # define in execution time
+      POSTGRES_DB: {POSTGRES_DB}
     volumes:
       - ../src/db/scripts:/docker-entrypoint-initdb.d
     ports:
