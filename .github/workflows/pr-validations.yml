@@ -9,6 +9,6 @@ on:
 
 jobs:
   static-code-analysis:
-    uses: ./.github/workflows/ci/static-code-analysis.yml
+    uses: ./.github/workflows/static-code-analysis.yml
     with:
       coverage_artifact: true
