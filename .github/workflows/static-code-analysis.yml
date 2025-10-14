@@ -21,7 +21,7 @@ jobs:
         run: uvx pre-commit run --all-files --show-diff-on-failure --color=always
 
       - name: Install dependencies
-        run: uv pip install -r requirements.txt
+        run: uv pip install -r requirements.txt --system
       
       - name: Run unit tests (with coverage report)
         if: ${{ inputs.coverage_artifact }}
