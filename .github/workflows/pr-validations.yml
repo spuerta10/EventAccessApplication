@@ -1,0 +1,14 @@
+# Static Code Analysis and test validation workflow. Runs only on pull requests targeting the main branch.
+
+name: Pull Requests Validations
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  static-code-analysis:
+    uses: ./.github/workflows/ci/static-code-analysis.yml
+    with:
+      coverage_artifact: true

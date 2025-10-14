@@ -1,0 +1,16 @@
+# Static Code Analysis, runs when push to feature/**, feat/**, fix/** branches.
+
+name: Dev branch validations
+
+on:
+  push:
+    branches:
+      - "feature/**"
+      - "feat/**"
+      - "fix/**"
+
+jobs:
+  static-code-analysis:
+    uses: ./.github/workflows/ci/static-code-analysis.yml
+    with:
+      coverage_artifact: false

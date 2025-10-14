@@ -1,0 +1,30 @@
+# Static Code Analysis, called when PR to main or push to feature/**, feat/**, fix/** branches.
+
+name: Static Code Analysis
+on: 
+  workflow_call:
+    inputs:
+      coverage_artifact:
+        required: true
+        type: boolean
+
+jobs:
+  static-code-analysis:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+
+    - name: Run Static Code Analysis
+      run: uvx pre-commit run --all-files --show-diff-on-failure --color=always
+
+    - name: Run unit tests (with coverage report)
+      if: ${{ inputs.coverage_artifact }}
+      run: uv run pytest --cov=./src --cov-report=xml --cov-report=term
+
+    - name: Run unit tests (console-only coverage)
+      if: ${{ !inputs.coverage_artifact }}
+      run: uv run pytest --cov=./src --cov-report=term-missing
+      
