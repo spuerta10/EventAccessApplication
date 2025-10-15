@@ -7,6 +7,6 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY src/register_ticket_api/ ./register_tickets_api/
+COPY src/register_ticket_api/ ./register_ticket_api/
 
-CMD ["python", "register_tickets_api/main.py"]
+CMD ["python", "-m", "register_ticket_api.main"]
