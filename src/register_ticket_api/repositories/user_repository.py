@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
-from entities import User
-from exceptions import DbOperationException
-from infraestructure import PostgreSQLDbContext
-from interfaces import IUserRepository
+from register_ticket_api.entities import User
+from register_ticket_api.exceptions import DbOperationException
+from register_ticket_api.infraestructure import PostgreSQLDbContext
+from register_ticket_api.interfaces import IUserRepository
 
 
 @dataclass

@@ -1,8 +1,9 @@
-from controllers import TicketsController
 from fastapi import FastAPI
-from infraestructure import PostgreSQLDbContext
-from repositories import TicketRepository, UserRepository
-from services import TicketService
+
+from register_ticket_api.controllers import TicketsController
+from register_ticket_api.infraestructure import PostgreSQLDbContext
+from register_ticket_api.repositories import TicketRepository, UserRepository
+from register_ticket_api.services import TicketService
 
 app = FastAPI()
 

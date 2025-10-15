@@ -2,10 +2,10 @@ from dataclasses import dataclass
 from typing import Any
 from uuid import UUID
 
-from entities import Ticket, User
-from exceptions import DbOperationException
-from infraestructure import PostgreSQLDbContext
-from interfaces import ITicketRepository
+from register_ticket_api.entities import Ticket, User
+from register_ticket_api.exceptions import DbOperationException
+from register_ticket_api.infraestructure import PostgreSQLDbContext
+from register_ticket_api.interfaces import ITicketRepository
 
 
 @dataclass
@@ -53,7 +53,7 @@ class TicketRepository(ITicketRepository):
             return Ticket(**row)
         return None
 
-    async def mark_ticket_as_used(self, ticket_id: UUID) -> Any[bool]:
+    async def mark_ticket_as_used(self, ticket_id: UUID) -> Any:  # bool
         FN_NAME: str = "fn_mark_ticket_as_used"
         try:
             db_conn = await self.db_context.get_connection()

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from entities import User
+from register_ticket_api.entities import User
 
 
 class IUserRepository(ABC):

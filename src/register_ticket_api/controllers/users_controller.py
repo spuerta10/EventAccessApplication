@@ -1,6 +1,7 @@
-from entities import User
 from fastapi import APIRouter, HTTPException, status
 from services import UserService
+
+from register_ticket_api.entities import User
 
 
 class UsersController:
