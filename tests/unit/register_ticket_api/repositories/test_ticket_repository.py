@@ -10,7 +10,7 @@ from src.register_ticket_api.repositories.ticket_repository import TicketReposit
 
 @pytest.fixture
 def sample_user() -> User:
-    return User(id=uuid4(), username="test")
+    return User(id=uuid4(), username="test", password="")
 
 
 @pytest.fixture
