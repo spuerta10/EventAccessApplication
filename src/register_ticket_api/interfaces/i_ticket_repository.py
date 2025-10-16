@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from uuid import UUID
 
-from entities import Ticket, User
+from register_ticket_api.entities import Ticket, User
 
 
 class ITicketRepository(ABC):

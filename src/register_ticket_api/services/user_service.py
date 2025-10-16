@@ -1,9 +1,9 @@
 import re
 from dataclasses import dataclass
 
-from entities import User
-from exceptions import AppValidationException, DbOperationException
-from interfaces import IUserRepository
+from register_ticket_api.entities import User
+from register_ticket_api.exceptions import AppValidationException, DbOperationException
+from register_ticket_api.interfaces import IUserRepository
 
 
 @dataclass

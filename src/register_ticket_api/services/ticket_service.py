@@ -3,10 +3,11 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 import pyotp
-from entities import AttendanceLog, Ticket, User
-from exceptions import AppValidationException, DbOperationException
-from interfaces import ITicketRepository, IUserRepository
 from loguru import logger
+
+from register_ticket_api.entities import AttendanceLog, Ticket, User
+from register_ticket_api.exceptions import AppValidationException, DbOperationException
+from register_ticket_api.interfaces import ITicketRepository, IUserRepository
 
 
 @dataclass

@@ -1,8 +1,9 @@
-from entities import AttendanceLog, Ticket
-from exceptions import AppValidationException
 from fastapi import APIRouter, HTTPException, status
 from loguru import logger
-from services import TicketService
+
+from register_ticket_api.entities import AttendanceLog, Ticket
+from register_ticket_api.exceptions import AppValidationException
+from register_ticket_api.services import TicketService
 
 
 class TicketsController:
