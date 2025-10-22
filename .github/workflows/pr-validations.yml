@@ -12,3 +12,52 @@ jobs:
     uses: ./.github/workflows/static-code-analysis.yml
     with:
       coverage_artifact: true
+
+  #sonarqube-analysis:
+    #needs: static-code-analysis
+    #runs-on: ubuntu-latest
+    #steps:
+      #- uses: actions/checkout@v4
+
+      #- name: Download coverage report
+        #uses: actions/download-artifact@v4
+        #with:
+          #name: coverage-report
+          #path: coverage-artifacts  # cov artifacts will be on coverage-artifacts/ folder
+      
+      #- name: Run SonarQube Scan
+        #uses: SonarSource/sonarqube-scan-action@v5.0.0
+        #env:
+          #GITHUB_TOKEN: ${{  }}
+          #SONAR_TOKEN: ${{  }}
+        #with:
+          #args: >
+            #-Dsonar.python.coverage.reportPaths=coverage-artifacts/coverage.xml
+  
+  run-integration-tests:
+    needs: static-code-analysis  # TODO: need sonarqube
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      
+      - name: Install dependencies
+        run: |
+          uv venv
+          uv pip install -r requirements.txt
+
+      - name: Load env vars from .env.test file
+        run: |
+          set -a
+          source .env.test
+          set +a
+        shell: bash
+
+      - name: Start services (docker-compose)
+        run: docker compose -f docker/docker-compose.yml up --build -d
+      
+      - name: Wait for pSQL to be ready
+        run: sleep 10 
+
+      - name: Execute base integration tests
+        run: uv run pytest tests/integration
