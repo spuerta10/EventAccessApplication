@@ -12,7 +12,7 @@ def db_connection() -> Generator:
         dbname=os.getenv("DB_NAME", "event_access"),
         user=os.getenv("DB_USER", "test"),
         password=os.getenv("DB_PASSWORD", "TEST"),
-        host=os.getenv("DB_HOST", "postgres"),
+        host=os.getenv("POSTGRES_HOST", "localhost"),
         port=os.getenv("DB_PORT", "5432"),
     )
     yield conn
