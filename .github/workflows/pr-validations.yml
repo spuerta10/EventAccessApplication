@@ -51,8 +51,8 @@ jobs:
       - name: Load env vars from .env.test file
         uses: xom9ikk/dotenv@v2
         with:
-          path: .
-          mode: .env.test
+          path: . # project's root folder
+          mode: test # .env.test
 
       - name: Start services (docker-compose)
         run: docker compose -f docker/docker-compose.yml up --build -d
