@@ -59,7 +59,7 @@ jobs:
         run: docker compose -f docker/docker-compose.yml up --build -d
       
       - name: Wait for pSQL to be ready
-        run: sleep 10 
+        run: sleep 30
 
       - name: Execute base integration tests
         run: uv run pytest tests/integration
