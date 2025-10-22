@@ -49,11 +49,10 @@ jobs:
           uv pip install -r requirements.txt
 
       - name: Load env vars from .env.test file
-        run: |
-          set -a
-          source .env.test
-          set +a
-        shell: bash
+        uses: xom9ikk/dotenv@v2
+        with:
+          path: .
+          mode: .env.test
 
       - name: Start services (docker-compose)
         run: docker compose -f docker/docker-compose.yml up --build -d
