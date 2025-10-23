@@ -1,0 +1,43 @@
+name: Run integration tests
+on:
+  workflow_call:
+    inputs:
+      deployment_env:
+        required: true
+        type: string
+        description: "Deployment environment (e.g., pr, staging, prod)"
+
+jobs:
+  run-integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      
+      - name: Install dependencies
+        run: |
+          uv venv
+          uv pip install -r requirements.txt
+
+      - name: Load env vars from .env.test file
+        uses: xom9ikk/dotenv@v2
+        with:
+          path: . # project's root folder
+          mode: ${{ inputs.deployment_env == 'local' && 'test' || inputs.env_filename }} # .env.deployment_env
+        
+      - name: Start services (docker-compose)
+        if: ${{ inputs.deployment_env == 'local' }}
+        run: docker compose -f docker/docker-compose.yml up --build -d
+      
+      - name: Wait for pSQL to be ready
+        if: ${{ inputs.deployment_env == 'local' }}
+        run: sleep 30
+
+      - name: Execute base integration tests
+        run: uv run pytest tests/integration
+      
+      - name: Destroy Docker resources
+        if: ${{ inputs.deployment_env == 'local' }}
+        run: docker compose -f docker/docker-compose.yml down
