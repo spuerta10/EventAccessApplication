@@ -12,3 +12,56 @@ jobs:
     uses: ./.github/workflows/static-code-analysis.yml
     with:
       coverage_artifact: true
+
+  #sonarqube-analysis:
+    #needs: static-code-analysis
+    #runs-on: ubuntu-latest
+    #steps:
+      #- uses: actions/checkout@v4
+
+      #- name: Download coverage report
+        #uses: actions/download-artifact@v4
+        #with:
+          #name: coverage-report
+          #path: coverage-artifacts  # cov artifacts will be on coverage-artifacts/ folder
+      
+      #- name: Run SonarQube Scan
+        #uses: SonarSource/sonarqube-scan-action@v5.0.0
+        #env:
+          #GITHUB_TOKEN: ${{  }}
+          #SONAR_TOKEN: ${{  }}
+        #with:
+          #args: >
+            #-Dsonar.python.coverage.reportPaths=coverage-artifacts/coverage.xml
+  
+  run-integration-tests:
+    needs: static-code-analysis  # TODO: need sonarqube
+    uses: ./.github/workflows/integration-tests.yml
+    with:
+      deployment_env: 'local'
+
+  build-and-push-register-ticket-api:
+    needs: run-integration-tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # lets write Docker image to GHCR
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in Github container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push Docker image to GHCR
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile.register-ticket-api
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/register-ticket-api:latest
+            ghcr.io/${{ github.repository_owner }}/register-ticket-api:${{ github.sha }}

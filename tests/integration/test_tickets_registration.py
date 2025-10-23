@@ -1,0 +1,88 @@
+from typing import Any
+
+import requests
+from psycopg2._psycopg import connection
+
+OK_STATUS_CODE: int = 202
+ERROR_STATUS_CODE: int = 400
+REQUEST_TIMEOUT: int = 10  # seconds
+
+
+def test_register_ticket_flow(
+    base_url: str, db_connection: connection, test_username: str = "spuertaf"
+) -> None:
+    """
+    Tests whole ticket registration flow works as expected.
+    """
+    headers: dict[str, str] = {"Content-Type": "application/json"}
+    payload: dict[str, str] = {"seat": "A12", "gate": "G1"}
+    endpoint: str = f"/api/users/{test_username}/tickets"
+
+    response = requests.post(
+        url=base_url + endpoint, headers=headers, json=payload, timeout=REQUEST_TIMEOUT
+    )
+
+    assert response.status_code == OK_STATUS_CODE
+
+    ticket_id: str = response.json().get("id")
+    assert ticket_id is not None
+
+    response_user_id: str = response.json().get("user_id")
+    assert response_user_id is not None
+
+    used_at = response.json().get("used_at")
+    assert used_at is None
+
+    # see if database registered the ticket
+    with db_connection.cursor() as cursor:
+        cursor.execute(
+            """
+            SELECT
+                seat, gate, user_id, status
+            FROM tickets
+            WHERE
+                ticket_id = %s
+            """,
+            (ticket_id,),
+        )
+        result: tuple[Any, Any, Any, Any] = cursor.fetchone()
+
+    assert result is not None
+    seat, gate, user_id, status = result
+    assert seat == payload["seat"]
+    assert gate == payload["gate"]
+    assert str(user_id) == str(response_user_id)
+    assert status == "valid"
+
+
+def test_register_ticket_fails_when_already_registered(
+    base_url: str,
+    test_username: str = "juanperez",  # different user so tests don't collide
+) -> None:
+    headers: dict[str, str] = {"Content-Type": "application/json"}
+    payload: dict[str, str] = {
+        "seat": "B05",
+        "gate": "G2",
+    }  # different ticket info so tests don't collide
+    endpoint: str = f"/api/users/{test_username}/tickets"
+
+    first_response = requests.post(
+        url=base_url + endpoint, headers=headers, json=payload, timeout=REQUEST_TIMEOUT
+    )
+    assert first_response.status_code == OK_STATUS_CODE
+
+    second_response = requests.post(
+        url=base_url + endpoint, headers=headers, json=payload, timeout=REQUEST_TIMEOUT
+    )
+    assert second_response.status_code == ERROR_STATUS_CODE
+
+
+def test_invalid_ticket_registration_error(base_url: str, test_username: str = "spuertaf") -> None:
+    headers: dict[str, str] = {"Content-Type": "application/json"}
+    payload: dict[str, str] = {"seat": "B05", "gate": "G12"}
+    endpoint: str = f"/api/users/{test_username}/tickets"
+
+    response = requests.post(
+        url=base_url + endpoint, headers=headers, json=payload, timeout=REQUEST_TIMEOUT
+    )
+    assert response.status_code == ERROR_STATUS_CODE
