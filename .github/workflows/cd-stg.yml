@@ -1,0 +1,14 @@
+# CD pipeline for staging environment runs when PR gets merged with main branch
+
+name: CD pipeline for staging environment
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy-to-stg:
+    uses: ./.github/workflows/cd-base.yml
+    with:
+      deployment_env: stg
