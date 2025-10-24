@@ -8,6 +8,11 @@ variable "db_tier" {
     default = "db-f1-micro"
 }
 
+variable "service_name" { # cloud run service name
+    type = string
+    default = "register-ticket-api"
+}
+
 # db_port=5432 by default in Cloud SQL
 
 # required vars
@@ -35,3 +40,7 @@ variable "db_name" {
 }
 
 # cloud run vars
+
+variable "image_uri" {
+    type = string
+}
