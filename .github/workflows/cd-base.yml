@@ -28,13 +28,25 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
+      - name: Extract tag name from GHCR
+        id: extract
+        run: |
+          TAG=$(echo "${{ inputs.image_uri }}" | cut -d':' -f2)
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+
+          APP_NAME=$(echo "${{ inputs.image_uri }}" | cut -d'/' -f3 | cut -d':' -f1)
+          echo "app_name=${APP_NAME}" >> $GITHUB_OUTPUT
+
       - name: Pull -> re-tag -> push
         id: push
         run: |
-          DOCKERHUB_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/mi-app:latest"
+          DOCKERHUB_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.extract.outputs.app_name }}:${{ steps.extract.outputs.tag }}"
           docker pull ${{ inputs.image_uri }}
+          
           docker tag ${{ inputs.image_uri }} $DOCKERHUB_IMAGE
+          
           docker push $DOCKERHUB_IMAGE
+          
           echo "image_uri=$DOCKERHUB_IMAGE" >> $GITHUB_OUTPUT
 
   deploy:
