@@ -1,10 +1,3 @@
-# Artifact Registry
-resource "google_artifact_registy_repository" "my_repo" {
-    location      = var.region
-    repository_id = var.registry_id
-    format        = "DOCKER"
-}
-
 # Cloud SQL 
 
 resource "google_sql_database_instance" "main" { # create Cloud SQL instance
