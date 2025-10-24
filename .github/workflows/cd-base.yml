@@ -40,14 +40,15 @@ jobs:
       - name: Pull -> re-tag -> push
         id: push
         run: |
-          DOCKERHUB_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.extract.outputs.app_name }}:${{ steps.extract.outputs.tag }}"
+          PUBLIC_IMAGE="${{ steps.extract.outputs.app_name }}:${{ steps.extract.outputs.tag }}"
+          DOCKERHUB_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/${PUBLIC_IMAGE}"
           docker pull ${{ inputs.image_uri }}
           
           docker tag ${{ inputs.image_uri }} ${DOCKERHUB_IMAGE}
           
           docker push ${DOCKERHUB_IMAGE}
           
-          echo "image_uri=${DOCKERHUB_IMAGE}" >> $GITHUB_OUTPUT
+          echo "image_uri=${PUBLIC_IMAGE}" >> $GITHUB_OUTPUT
 
   deploy:
     needs: pull-tag-push
@@ -87,7 +88,7 @@ jobs:
             -var="db_name=${{ secrets.DB_NAME }}" \
             -var="db_user=${{ secrets.DB_USER }}" \
             -var="db_password=${{ secrets.DB_PASSWORD }}" \
-            -var="image_uri=${{ needs.pull-tag-push.outputs.dockerhub_image }}" \
+            -var="image_uri=${{ secrets.DOCKERHUB_USERNAME }}/${{ needs.pull-tag-push.outputs.dockerhub_image }}" \
             -out=tfplan
       
       - name: Terraform Apply
