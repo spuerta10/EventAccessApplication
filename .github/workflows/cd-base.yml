@@ -117,10 +117,12 @@ jobs:
         working-directory: terraform
         run: terraform apply tfplan
       
-      - name: Get db public IP
+      - name: Get Terraform outputs
         id: db
         working-directory: terraform
-        run: echo "public_ip=$(terraform output -raw db_host)" >> $GITHUB_OUTPUT
+        run: |
+          echo "public_ip=$(terraform output -raw db_host)" >> $GITHUB_OUTPUT
+          echo "api_url=$(terraform output -raw cloud_run_service_url)" >> $GITHUB_OUTPUT
 
       - name: Check if tickets table exists
         id: check_table
@@ -158,3 +160,11 @@ jobs:
       - name: Skipped table creation (existent tickets table)
         if: steps.check_table.outputs.table_exist == 't'
         run: echo ""
+
+  run-integration-tests:
+    needs: deploy 
+    uses: ./.github/workflows/integration-tests.yml
+    with:
+      deployment_env: ${{ inputs.deployment_env }}
+      db_host: ${{ steps.db.outputs.public_ip }}
+      api_url: ${{ steps.db.outputs.api_url }}
