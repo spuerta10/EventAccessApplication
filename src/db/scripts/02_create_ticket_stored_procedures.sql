@@ -1,4 +1,8 @@
-\c :DB_NAME;
+\if :{?DB_NAME}
+    \c :DB_NAME
+\else
+    \c event_access;
+\endif
 
 CREATE OR REPLACE PROCEDURE sp_register_ticket_to_user(
     p_ticket_id UUID,

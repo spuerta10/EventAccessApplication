@@ -1,4 +1,8 @@
-\c :DB_NAME;
+\if :{?DB_NAME}
+    \c :DB_NAME
+\else
+    \c event_access;
+\endif
 
 CREATE TABLE users (
     user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
