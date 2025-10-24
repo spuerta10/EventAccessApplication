@@ -181,8 +181,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Cleanup SPs and tables
-        env:
-          PGPASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           # install postgres client
           sudo apt-get update && sudo apt-get install -y postgresql-client
@@ -191,10 +189,10 @@ jobs:
           set -e 
           for file in $(ls src/db/scripts/cleanup/*.sql | sort -V); do
             echo "> Executing: $file"
+            PGPASSWORD=${{ secrets.DB_PASSWORD }} \
             psql -h ${{ needs.deploy.outputs.db_host }} \
                  -U ${{ secrets.DB_USER }} \
                  -d ${{ secrets.DB_NAME }} \
                  -f "$file" \
-                 -v DB_NAME=${{ secrets.DB_NAME }} \
                  -v ON_ERROR_STOP=1
           done
