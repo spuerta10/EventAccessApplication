@@ -127,24 +127,7 @@ jobs:
           echo "public_ip=$(terraform output -raw db_host)" >> $GITHUB_OUTPUT
           echo "api_url=$(terraform output -raw cloud_run_service_url)" >> $GITHUB_OUTPUT
 
-      - name: Check if tickets table exists
-        id: check_table
-        env: 
-          PGPASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: |
-          # install postgres client
-          sudo apt-get update && sudo apt-get install -y postgresql-client
-
-          TABLE_EXISTS=$(psql -h ${{ steps.db.outputs.public_ip }} \
-            -U ${{ secrets.DB_USER }} \
-            -d ${{ secrets.DB_NAME }} \
-            -tAc "SELECT EXISTS (SELECT FROM pg_tables WHERE tablename = 'tickets');" \
-          )
-
-          echo "table_exist=$TABLE_EXISTS" >> $GITHUB_OUTPUT
-
-      - name: Create tables and populate (tickets table not existent)
-        if: steps.check_table.outputs.table_exist == 'f'
+      - name: Populate table with test records
         env:
           PGPASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
@@ -159,10 +142,6 @@ jobs:
                  -v DB_NAME=${{ secrets.DB_NAME }} \
                  -v ON_ERROR_STOP=1
           done
-      
-      - name: Skipped table creation (existent tickets table)
-        if: steps.check_table.outputs.table_exist == 't'
-        run: echo ""
 
   run-integration-tests:
     needs: deploy
