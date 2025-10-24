@@ -1,0 +1,74 @@
+on:
+  workflow_call:
+    inputs:
+      deployment_env:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.deployment_env }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      
+      - name: Auth GCP
+        uses: google-github-actions/auth@v2
+        with: 
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      
+      - name: Init Terraform
+        working-directory: terraform
+        run: terraform init
+      
+      - name: Use deployment env workspace
+        working-directory: terraform
+        run: |
+          terraform workspace select ${{ inputs.deployment_env }} || \
+          terraform workspace new ${{ inputs.deployment_env }}
+      
+      - name: Terraform plan
+        working-directory: terraform
+        run: |
+          terraform plan \
+            -var-file=environments/${{ inputs.deployment_env }}.tfvars \
+            -var="project_id=${{ secrets.GCP_PROJECT_ID }}" \
+            -var="db_name=${{ secrets.DB_NAME }}" \
+            -var="db_user=${{ secrets.DB_USER }}" \
+            -var="db_password=${{ secrets.DB_PASSWORD }}" \
+            -out=tfplan
+      
+      - name: Terraform Apply
+        working-directory: terraform
+        run: terraform apply tfplan
+      
+      - name: Get db public IP
+        id: db
+        working-directory: terraform
+        run: echo "public_ip=$(terraform output -raw db_host)" >> $GITHUB_OUTPUT
+
+      - name: Check if tickets table exists
+        id: check_table
+        env: 
+          PGPASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          # install postgres client
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+
+          TABLE_EXISTS=$(psql -h ${{ steps.db.outputs.public_ip }} \
+            -U ${{ secrets.DB_USER }} \
+            -d ${{ secrets.DB_NAME }} \
+            -tAc "SELECT EXISTS (SELECT FROM pg_tables WHERE tablename = 'tickets');" \
+          )
+
+          echo "table_exist=$TABLE_EXISTS" >> $GITHUB_OUTPUT
+
+      - name: Create tables & populate (tickets table not existent)
+        if: steps.check_tables.outputs.table_exist == 'f'
+      
+      - name: Skipped table creation (existent tickets table)
+        if: steps.check_tables.outputs.tables_exist == 't'
