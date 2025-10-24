@@ -167,6 +167,7 @@ jobs:
   run-integration-tests:
     needs: deploy
     uses: ./.github/workflows/integration-tests.yml
+    environment: ${{ inputs.deployment_env }}
     with:
       deployment_env: ${{ inputs.deployment_env }}
       db_host: ${{ needs.deploy.outputs.db_host }}
