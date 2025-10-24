@@ -171,3 +171,4 @@ jobs:
       deployment_env: ${{ inputs.deployment_env }}
       db_host: ${{ needs.deploy.outputs.db_host }}
       api_url: ${{ needs.deploy.outputs.api_url }}
+    secrets: inherit # pragma: allowlist secret
