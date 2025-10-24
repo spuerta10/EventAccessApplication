@@ -11,28 +11,18 @@ on:
 
 jobs:
   deploy-to-stg:
-    runs-on: ubunt-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Build image uri
-        id: uri
-        run: |
-          IMAGE_URI="ghcr.io/${{ github.repository_owner }}/register-ticket-api:${{ github.sha }}"
-          echo "image_uri=${IMAGE_URI}" >> $GITHUB_OUTPUT
-
-      - name: Deploy to staging
-        uses: ./.github/workflows/cd-base.yml
-        with:
-          deployment_env: stg
-          image_uri: ${{ steps.uri.outputs.image_uri }}
-        secrets: inherit # pragma: allowlist secret
+    uses: ./.github/workflows/cd-base.yml
+    secrets: inherit # pragma: allowlist secret
+    with:
+      deployment_env: stg
+      image_uri: ghcr.io/${{ github.repository_owner }}/register-ticket-api:${{ github.sha }}
 
   promote-to-stg-passed:
     needs: deploy-to-stg
     runs-on: ubunt-latest
     permissions:
       packages: write
+    
     steps:
       - name: Log in Github container registry
         uses: docker/login-action@v3
