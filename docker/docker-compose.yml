@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}  # define in execution time
       POSTGRES_DB: ${DB_NAME}
     volumes:
-      - ../src/db/scripts:/docker-entrypoint-initdb.d
+      - ../src/db/scripts/init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     networks:
