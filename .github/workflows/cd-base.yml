@@ -76,6 +76,10 @@ jobs:
           terraform workspace select ${{ inputs.deployment_env }} || \
           terraform workspace new ${{ inputs.deployment_env }}
       
+      - name: Debug dockerhub_image
+        run: |
+          echo "DockerHub image from previous job: '${{ needs.pull-tag-push.outputs.dockerhub_image }}'"
+
       - name: Terraform plan
         working-directory: terraform
         run: |
