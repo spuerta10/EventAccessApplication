@@ -150,7 +150,7 @@ jobs:
         run: |
           # if something fails stop
           set -e 
-          for file in $(ls src/db/scripts/*.sql | sort -V); do
+          for file in $(ls src/db/scripts/init/*.sql | sort -V); do
             echo "> Executing: $file"
             psql -h ${{ steps.db.outputs.public_ip }} \
                  -U ${{ secrets.DB_USER }} \
@@ -172,3 +172,30 @@ jobs:
       db_host: ${{ needs.deploy.outputs.db_host }}
       api_url: ${{ needs.deploy.outputs.api_url }}
     secrets: inherit # pragma: allowlist secret
+
+  cleanup-database:
+    needs: run-integration-tests
+    runs-on: ubuntu-latest
+    secrets: inherit  # pragma: allowlist secret
+    if: always() && github.event.inputs.deployment_env != 'local' # run even if integration test fail
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cleanup SPs and tables
+        env:
+          PGPASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          # install postgres client
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+
+          # if something fails stop
+          set -e 
+          for file in $(ls src/db/scripts/cleanup/*.sql | sort -V); do
+            echo "> Executing: $file"
+            psql -h ${{ steps.db.outputs.public_ip }} \
+                 -U ${{ secrets.DB_USER }} \
+                 -d ${{ secrets.DB_NAME }} \
+                 -f "$file" \
+                 -v DB_NAME=${{ secrets.DB_NAME }} \
+                 -v ON_ERROR_STOP=1
+          done
