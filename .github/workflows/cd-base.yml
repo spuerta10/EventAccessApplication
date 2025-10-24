@@ -174,7 +174,7 @@ jobs:
     secrets: inherit # pragma: allowlist secret
 
   cleanup-database:
-    needs: run-integration-tests
+    needs: [deploy, run-integration-tests]
     runs-on: ubuntu-latest
     if: always() && github.event.inputs.deployment_env != 'local' # run even if integration test fail
     steps:
@@ -191,7 +191,7 @@ jobs:
           set -e 
           for file in $(ls src/db/scripts/cleanup/*.sql | sort -V); do
             echo "> Executing: $file"
-            psql -h ${{ steps.db.outputs.public_ip }} \
+            psql -h ${{ needs.deploy.outputs.db_host }} \
                  -U ${{ secrets.DB_USER }} \
                  -d ${{ secrets.DB_NAME }} \
                  -f "$file" \
