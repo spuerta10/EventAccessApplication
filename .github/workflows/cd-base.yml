@@ -41,6 +41,7 @@ jobs:
         id: push
         run: |
           DOCKERHUB_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.extract.outputs.app_name }}:${{ steps.extract.outputs.tag }}"
+          echo "DOCKERHUB_USER=${DOCKERHUB_USER}"  # <--- debug
           echo "DOCKERHUB_IMAGE=${DOCKERHUB_IMAGE}"  # <--- debug
           docker pull ${{ inputs.image_uri }}
           
@@ -48,7 +49,7 @@ jobs:
           
           docker push ${DOCKERHUB_IMAGE}
           
-          echo "image_uri=${DOCKERHUB_IMAGE}" >> $GITHUB_OUTPUT
+          echo "image_uri=docker.io/${DOCKERHUB_IMAGE}" >> $GITHUB_OUTPUT
 
   deploy:
     needs: pull-tag-push
