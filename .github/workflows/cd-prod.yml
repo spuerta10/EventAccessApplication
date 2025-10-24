@@ -22,11 +22,6 @@ name: CD pipeline for prod environment
 
 on:
   workflow_dispatch: 
-  
-  workflow_run:
-    workflows: ["CD pipeline for staging environment"]
-    types:
-      - completed
 
 jobs:
   check-stg-last-run:
