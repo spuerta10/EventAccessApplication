@@ -43,7 +43,7 @@ jobs:
             -var="db_name=${{ secrets.DB_NAME }}" \
             -var="db_user=${{ secrets.DB_USER }}" \
             -var="db_password=${{ secrets.DB_PASSWORD }}" \
-            -var="image_uri=${{ inputs.image_uri }}"
+            -var="image_uri=${{ inputs.image_uri }}" \
             -out=tfplan
       
       - name: Terraform Apply
