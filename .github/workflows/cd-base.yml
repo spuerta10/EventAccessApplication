@@ -4,6 +4,9 @@ on:
       deployment_env:
         required: true
         type: string
+      image_uri:
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -40,6 +43,7 @@ jobs:
             -var="db_name=${{ secrets.DB_NAME }}" \
             -var="db_user=${{ secrets.DB_USER }}" \
             -var="db_password=${{ secrets.DB_PASSWORD }}" \
+            -var="image_uri=${{ inputs.image_uri }}"
             -out=tfplan
       
       - name: Terraform Apply
