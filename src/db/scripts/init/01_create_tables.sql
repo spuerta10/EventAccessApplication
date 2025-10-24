@@ -4,13 +4,13 @@
     \c event_access;
 \endif
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username VARCHAR(50) NOT NULL UNIQUE,
     password_hash TEXT NOT NULL
 );
 
-CREATE TABLE tickets (
+CREATE TABLE IF NOT EXISTS tickets (
     ticket_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NULL REFERENCES users(user_id),  -- not given user until registered
     seat VARCHAR(10) NOT NULL,
