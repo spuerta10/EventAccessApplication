@@ -1,0 +1,67 @@
+# ===============================================
+# CD Pipeline: Production Environment
+# ===============================================
+# Description:
+# This workflow deploys the register-ticket-api service to the production environment.
+# It ensures that the latest deployment in staging was successful before running.
+#
+# Features:
+#   1. Triggered manually via workflow_dispatch.
+#   2. Can also be triggered automatically after the "CD pipeline for staging environment" completes.
+#   3. Checks the last successful run of staging before deploying to production.
+#   4. Deploys using the base CD workflow with secrets inheritance.
+#
+# Jobs:
+#   - check-stg-last-run:
+#       Validates that the last staging deployment succeeded.
+#   - deploy-to-prd:
+#       Deploys the application to production only if staging deployment was successful.
+# ===============================================
+
+name: CD pipeline for prod environment
+
+on:
+  workflow_dispatch: 
+  
+  workflow_run:
+    workflows: ["CD pipeline for staging environment"]
+    types:
+      - completed
+
+jobs:
+  check-stg-last-run:
+    runs-on: ubunt-latest
+    outputs:
+      stg-success: ${{ steps.check.outputs.success }}
+    steps:
+      - name: Check staging last deployment was successful
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'staging-deploy.yml', // nombre de tu workflow de staging
+              branch: 'main',
+              per_page: 1
+            });
+            const lastRun = runs.data.workflow_runs[0];
+            const isSuccess = lastRun.conclusion === 'success';
+
+            core.setOutput('success', isSuccess);
+            
+            console.log(`Last staging run: ${lastRun.conclusion}`);
+
+            if (!isSuccess) {
+              core.setFailed('El último deployment de staging no fue exitoso');
+            }
+
+  deploy-to-prd:
+    needs: check-stg-last-run
+    if: needs.check-stg-last-run.outputs.stg-success == 'true'  # only execute if staging last run completed successfully
+    uses: ./.github/workflows/cd-base.yml
+    secrets: inherit # pragma: allowlist secret
+    with:
+      deployment_env: prd
+      image_uri: ghcr.io/${{ github.repository_owner }}/register-ticket-api:latest
