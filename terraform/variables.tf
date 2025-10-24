@@ -25,7 +25,13 @@ variable "environment" {
     type = string
 }
 
-# database vars
+# --- artifact registry vars ---
+
+variable "registry_id" {
+    type=string
+}
+
+# --- database vars ---
 
 variable "db_user" {
     type = string
@@ -39,7 +45,7 @@ variable "db_name" {
     type = string
 }
 
-# cloud run vars
+# --- cloud run vars ---
 
 variable "image_uri" {
     type = string
