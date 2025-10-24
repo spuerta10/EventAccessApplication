@@ -41,7 +41,7 @@ jobs:
         id: push
         run: |
           DOCKERHUB_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.extract.outputs.app_name }}:${{ steps.extract.outputs.tag }}"
-          echo "DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME}"  # <--- debug
+          echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}"  # <--- debug
           echo "DOCKERHUB_IMAGE=${DOCKERHUB_IMAGE}"  # <--- debug
           docker pull ${{ inputs.image_uri }}
           
