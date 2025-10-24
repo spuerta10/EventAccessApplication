@@ -175,6 +175,7 @@ jobs:
 
   cleanup-database:
     needs: [deploy, run-integration-tests]
+    environment: ${{ inputs.deployment_env }}
     runs-on: ubuntu-latest
     if: always() && github.event.inputs.deployment_env != 'local' # run even if integration test fail
     steps:
