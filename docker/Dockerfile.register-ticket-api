@@ -8,4 +8,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/register_ticket_api/ ./register_ticket_api/
 
+ENV PORT=8080
+
+EXPOSE 8080
+
 CMD ["python", "-m", "register_ticket_api.main"]
