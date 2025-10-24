@@ -9,65 +9,6 @@ on:
         type: string
 
 jobs:
-  pull-tag-push:
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.deployment_env }}
-    outputs:
-      registry_uri: ${{ steps.push.outputs.registry_uri }}
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Log in Github container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Auth GCP
-        uses: google-github-actions/auth@v2
-        with: 
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-      
-      - name: Init Terraform
-        working-directory: terraform
-        run: terraform init
-      
-      - name: Use deployment env workspace
-        working-directory: terraform
-        run: |
-          terraform workspace select ${{ inputs.deployment_env }} || \
-          terraform workspace new ${{ inputs.deployment_env }}
-
-      - name: Terraform plan artifact registry
-        working-directory: terraform
-        run: |
-          terraform plan \
-            -target=google_artifact_registry_repository.my_repo
-            -var-file=environments/${{ inputs.deployment_env }}.tfvars \
-            -var="repository_id=${{ github.repository_owner }}" \
-            -out=tfplan
-      
-      - name: Terraform apply artifact registry
-        working-directory: terraform
-        run: terraform apply tfplan
-
-      - name: Pull (GHCR) -> Tag -> Push (AR)
-        id: push
-        run: |
-          REGISTRY_URI="us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ github.repository_owner }}/register-ticket-api:${{ github.sha }}"
-
-          gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
-          docker pull ${{ inputs.image_uri }}
-          docker tag ${{ inputs.image_uri }} \
-            ${REGISTRY_URI}
-          docker push ${REGISTRY_URI}
-
-          echo "registry_uri=${REGISTRY_URI}" >> $GITHUB_OUTPUT
-
   deploy:
     needs: pull-tag-push
     runs-on: ubuntu-latest
