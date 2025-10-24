@@ -22,6 +22,8 @@ name: CD pipeline for prod environment
 
 on:
   workflow_dispatch: 
+    branches:
+      - main
 
 jobs:
   check-stg-last-run:
@@ -37,7 +39,7 @@ jobs:
             const runs = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'staging-deploy.yml', // nombre de tu workflow de staging
+              workflow_id: 'cd-stg.yml', # name of stg workflow yml
               branch: 'main',
               per_page: 1
             });
