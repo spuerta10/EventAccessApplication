@@ -3,7 +3,7 @@
 name: CD pipeline for staging environment
 
 on:
-  pull_request:
+  push:
     branches:
       - main
   
