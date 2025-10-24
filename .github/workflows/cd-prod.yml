@@ -25,7 +25,7 @@ on:
 
 jobs:
   check-stg-last-run:
-    runs-on: ubunt-latest
+    runs-on: ubuntu-latest
     outputs:
       stg-success: ${{ steps.check.outputs.success }}
     steps:
