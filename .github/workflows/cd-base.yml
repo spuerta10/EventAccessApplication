@@ -32,8 +32,8 @@ jobs:
         id: push
         run: |
           DOCKERHUB_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/mi-app:latest"
-          docker pull ${{ env.image_uri }}
-          docker tag ${{ env.image_uri }} $DOCKERHUB_IMAGE
+          docker pull ${{ inputs.image_uri }}
+          docker tag ${{ inputs.image_uri }} $DOCKERHUB_IMAGE
           docker push $DOCKERHUB_IMAGE
           echo "image_uri=$DOCKERHUB_IMAGE" >> $GITHUB_OUTPUT
 
