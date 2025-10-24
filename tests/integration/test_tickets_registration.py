@@ -1,3 +1,7 @@
+"""
+Integration tests for the ticket registration API and database flow.
+"""
+
 from typing import Any
 
 import requests
@@ -12,7 +16,17 @@ def test_register_ticket_flow(
     base_url: str, db_connection: connection, test_username: str = "spuertaf"
 ) -> None:
     """
-    Tests whole ticket registration flow works as expected.
+    Test the full ticket registration flow for a user.
+
+    Sends a POST request to register a ticket for the specified user, then
+    verifies that the ticket is correctly stored in the database with
+    expected values.
+
+    Args:
+        base_url (str): Base URL of the ticket registration API.
+        db_connection (connection): Active PostgreSQL database connection.
+        test_username (str, optional): Username for which the ticket is registered.
+            Defaults to "spuertaf".
     """
     headers: dict[str, str] = {"Content-Type": "application/json"}
     payload: dict[str, str] = {"seat": "A12", "gate": "G1"}
@@ -59,6 +73,17 @@ def test_register_ticket_fails_when_already_registered(
     base_url: str,
     test_username: str = "juanperez",  # different user so tests don't collide
 ) -> None:
+    """
+    Test that registering the same ticket twice fails.
+
+    Sends a POST request to register a ticket for the user, then attempts
+    to register the same ticket again and expects an error.
+
+    Args:
+        base_url (str): Base URL of the ticket registration API.
+        test_username (str, optional): Username for which the ticket is registered.
+            Defaults to "juanperez".
+    """
     headers: dict[str, str] = {"Content-Type": "application/json"}
     payload: dict[str, str] = {
         "seat": "B05",
@@ -78,6 +103,17 @@ def test_register_ticket_fails_when_already_registered(
 
 
 def test_invalid_ticket_registration_error(base_url: str, test_username: str = "spuertaf") -> None:
+    """
+    Test that registering a ticket with invalid data returns an error.
+
+    Sends a POST request with invalid seat/gate values and expects the API
+    to return an error code.
+
+    Args:
+        base_url (str): Base URL of the ticket registration API.
+        test_username (str, optional): Username for which the ticket is registered.
+            Defaults to "spuertaf".
+    """
     headers: dict[str, str] = {"Content-Type": "application/json"}
     payload: dict[str, str] = {"seat": "B05", "gate": "G12"}
     endpoint: str = f"/api/users/{test_username}/tickets"

@@ -1,4 +1,23 @@
-# Static Code Analysis, called when PR to main or push to feature/**, feat/**, fix/** branches.
+# =====================================================
+# CI Workflow: Static Code Analysis
+# =====================================================
+# Description:
+# This workflow performs static code analysis, lints, and unit tests
+# for Python projects. It supports generating coverage reports optionally.
+#
+# Triggered via:
+#   - workflow_call: Can be invoked by other workflows
+#
+# Inputs:
+#   - coverage_artifact (boolean, required): 
+#       If true, generates coverage reports and uploads them as artifacts.
+#       If false, runs tests with console-only coverage output.
+#
+# Jobs:
+#   - static-code-analysis:
+#       Runs pre-commit checks, installs dependencies, executes unit tests,
+#       and optionally uploads coverage reports.
+# =====================================================
 
 name: Static Code Analysis
 on: 

@@ -1,4 +1,15 @@
-# CD pipeline for staging environment runs when PR gets merged with main branch
+# =====================================================
+# CD Pipeline: Staging Environment
+# =====================================================
+# Description:
+# This workflow deploys the latest register-ticket-api image
+# to the staging environment whenever a PR is merged into main
+# or when triggered manually via workflow_dispatch.
+#
+# Jobs:
+#   - deploy-to-stg: Deploys the application using the reusable cd-base workflow
+#   - promote-to-stg-passed: Tags the image as stg-passed after successful deployment
+# =====================================================
 
 name: CD pipeline for staging environment
 

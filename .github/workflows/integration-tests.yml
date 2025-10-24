@@ -1,3 +1,24 @@
+# =====================================================
+# CI/CD Workflow: Run Integration Tests
+# =====================================================
+# Description:
+# This workflow executes integration tests for the project.
+# It can run in different deployment environments (local, staging, production)
+# and conditionally starts/stops local services using Docker Compose.
+#
+# Triggered via:
+#   - workflow_call (called from other workflows)
+#
+# Inputs:
+#   deployment_env: Deployment environment (e.g., local, staging, prod)
+#
+# Jobs:
+#   - run-integration-tests:
+#       Checks out code, installs dependencies, loads environment variables,
+#       optionally spins up Docker Compose services for local testing,
+#       executes integration tests, and cleans up resources.
+# =====================================================
+
 name: Run integration tests
 on:
   workflow_call:
