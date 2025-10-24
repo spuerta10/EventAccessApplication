@@ -39,7 +39,7 @@ jobs:
             const runs = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'cd-stg.yml', # name of stg workflow yml
+              workflow_id: 'cd-stg.yml', // name of stg workflow yml
               branch: 'main',
               per_page: 1
             });
