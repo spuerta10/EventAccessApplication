@@ -31,10 +31,10 @@ jobs:
       - name: Extract tag name from GHCR
         id: extract
         run: |
-          TAG=$(echo "${{ inputs.image_uri }}" | cut -d':' -f2)
+          TAG=$(echo "${{ inputs.image_uri }}" | awk -F':' '{print $NF}')
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
 
-          APP_NAME=$(echo "${{ inputs.image_uri }}" | cut -d'/' -f3 | cut -d':' -f1)
+          APP_NAME=$(echo "${{ inputs.image_uri }}" | awk -F'/' '{print $NF}' | cut -d':' -f1)
           echo "app_name=${APP_NAME}" >> $GITHUB_OUTPUT
 
       - name: Pull -> re-tag -> push
@@ -43,11 +43,11 @@ jobs:
           DOCKERHUB_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.extract.outputs.app_name }}:${{ steps.extract.outputs.tag }}"
           docker pull ${{ inputs.image_uri }}
           
-          docker tag ${{ inputs.image_uri }} $DOCKERHUB_IMAGE
+          docker tag ${{ inputs.image_uri }} ${DOCKERHUB_IMAGE}
           
-          docker push $DOCKERHUB_IMAGE
+          docker push ${DOCKERHUB_IMAGE}
           
-          echo "image_uri=$DOCKERHUB_IMAGE" >> $GITHUB_OUTPUT
+          echo "image_uri=${DOCKERHUB_IMAGE}" >> $GITHUB_OUTPUT
 
   deploy:
     needs: pull-tag-push
