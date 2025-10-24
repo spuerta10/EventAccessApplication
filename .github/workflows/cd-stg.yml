@@ -14,3 +14,4 @@ jobs:
     uses: ./.github/workflows/cd-base.yml
     with:
       deployment_env: stg
+    secrets: inherit # pragma: allowlist secret
