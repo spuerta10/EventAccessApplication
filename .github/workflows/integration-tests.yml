@@ -26,12 +26,27 @@ on:
       deployment_env:
         required: true
         type: string
-        description: "Deployment environment (e.g., pr, staging, prod)"
+        description: "Deployment environment (e.g., prd, stg)"
+      db_host: 
+        required: false  # only required when deployment_env != local
+        type: string
+      api_url:
+        required: false  # only required when deployment_env != local
+        type: string
 
 jobs:
   run-integration-tests:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.deployment_env }}
     steps:
+      - name: Validate inputs
+        if: ${{ inputs.deployment_env != 'local' }}
+        run: |
+          if [ -z "${{ inputs.db_host }}" ] || [ -z "${{ inputs.api_url }}" ]; then
+            echo "ERROR: db_host and api_url must be provided for non-local environments"
+            exit 1
+          fi
+
       - uses: actions/checkout@v4
 
       - name: Install uv
@@ -43,11 +58,12 @@ jobs:
           uv pip install -r requirements.txt
 
       - name: Load env vars from .env.test file
+        if: ${{ inputs.deployment_env == 'local' }}
         uses: xom9ikk/dotenv@v2
         with:
           path: . # project's root folder
           mode: ${{ inputs.deployment_env == 'local' && 'test' || inputs.env_filename }} # .env.deployment_env
-        
+
       - name: Start services (docker-compose)
         if: ${{ inputs.deployment_env == 'local' }}
         run: docker compose -f docker/docker-compose.yml up --build -d
@@ -56,9 +72,21 @@ jobs:
         if: ${{ inputs.deployment_env == 'local' }}
         run: sleep 30
 
-      - name: Execute base integration tests
+      - name: Execute base integration tests for LOCAL env
+        if: ${{ inputs.deployment_env == 'local' }}
         run: uv run pytest tests/integration
-      
+
+      - name: Execute base integration tests for STG or PRD env
+        if: ${{ inputs.deployment_env != 'local' }}
+        run: uv run pytest tests/integration
+        env:
+          POSTGRES_HOST: ${{ inputs.db_host }}
+          DB_PORT: 5432 # default cloud SQL postgres port
+          DB_USER: ${{ secrets.db_user }}
+          DB_PASSWORD: ${{ secrets.db_password }}
+          DB_NAME: ${{ secrets.db_name }}
+          BASE_URL: ${{ inputs.api_url }}
+
       - name: Destroy Docker resources
         if: ${{ inputs.deployment_env == 'local' }}
         run: docker compose -f docker/docker-compose.yml down
