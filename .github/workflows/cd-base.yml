@@ -165,9 +165,9 @@ jobs:
         run: echo ""
 
   run-integration-tests:
-  needs: deploy
-  uses: ./.github/workflows/integration-tests.yml
-  with:
-    deployment_env: ${{ inputs.deployment_env }}
-    db_host: ${{ needs.deploy.outputs.db_host }}
-    api_url: ${{ needs.deploy.outputs.api_url }}
+    needs: deploy
+    uses: ./.github/workflows/integration-tests.yml
+    with:
+      deployment_env: ${{ inputs.deployment_env }}
+      db_host: ${{ needs.deploy.outputs.db_host }}
+      api_url: ${{ needs.deploy.outputs.api_url }}
