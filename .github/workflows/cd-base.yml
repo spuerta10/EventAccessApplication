@@ -181,7 +181,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cleanup SPs and tables
+      - name: Cleanup test records
         run: |
           # install postgres client
           sudo apt-get update && sudo apt-get install -y postgresql-client
@@ -195,5 +195,6 @@ jobs:
                  -U ${{ secrets.DB_USER }} \
                  -d ${{ secrets.DB_NAME }} \
                  -f "$file" \
+                 -v DB_NAME=${{ secrets.DB_NAME }} \
                  -v ON_ERROR_STOP=1
           done
