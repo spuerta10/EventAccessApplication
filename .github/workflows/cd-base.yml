@@ -176,7 +176,6 @@ jobs:
   cleanup-database:
     needs: run-integration-tests
     runs-on: ubuntu-latest
-    secrets: inherit  # pragma: allowlist secret
     if: always() && github.event.inputs.deployment_env != 'local' # run even if integration test fail
     steps:
       - uses: actions/checkout@v4
