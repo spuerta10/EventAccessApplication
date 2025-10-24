@@ -1,4 +1,25 @@
-# Static Code Analysis and test validation workflow. Runs only on pull requests targeting the main branch.
+# =====================================================
+# CI/CD Workflow: Pull Request Validations
+# =====================================================
+# Description:
+# This workflow runs validations on pull requests targeting the main branch.
+# It includes static code analysis, (optionally SonarQube analysis), integration tests,
+# and building & pushing Docker images to GitHub Container Registry (GHCR).
+#
+# Triggered via:
+#   - pull_request events on the main branch
+#
+# Jobs:
+#   - static-code-analysis:
+#       Runs static code checks and optionally generates coverage artifacts.
+#
+#   - run-integration-tests:
+#       Executes integration tests in a specified environment. Depends on static code analysis.
+#
+#   - build-and-push-register-ticket-api:
+#       Builds the Docker image for the register-ticket-api service and pushes it to GHCR.
+#       Depends on integration tests to ensure only tested code is pushed.
+# =====================================================
 
 name: Pull Requests Validations
 

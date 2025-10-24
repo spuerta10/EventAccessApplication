@@ -1,3 +1,23 @@
+# =====================================================
+# CI/CD Workflow: PANIC - Destroy Infrastructure
+# =====================================================
+# Description:
+# This workflow is used to destroy all infrastructure for a given environment.
+# It is intended for emergency or complete teardown scenarios.
+#
+# Triggered via:
+#   - workflow_dispatch: Manual trigger from GitHub UI
+#
+# Inputs:
+#   - deployment_env (choice, required): The target environment to destroy. Options: stg, prd
+#   - confirmation (string, required): Must be exactly "DESTROY" to confirm execution.
+#
+# Jobs:
+#   - destroy-infrastructure:
+#       Validates the confirmation input, initializes Terraform, selects the
+#       appropriate workspace, and destroys all resources.
+# =====================================================
+
 name: PANIC - destroy infrastructure
 
 on:

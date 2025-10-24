@@ -1,4 +1,21 @@
-# Static Code Analysis, runs when push to feature/**, feat/**, fix/** branches.
+# ===============================================
+# CI Workflow: Dev Branch Validations
+# ===============================================
+# Description:
+# This workflow runs static code analysis on development branches
+# to enforce code quality and style before merging into main.
+#
+# Triggers:
+#   - Push to any branch matching feature/**, feat/**, or fix/**
+#
+# Jobs:
+#   - static-code-analysis: Delegates to the shared workflow
+#     ./.github/workflows/static-code-analysis.yml
+#
+# Inputs:
+#   - coverage_artifact: Boolean flag to enable/disable coverage artifact
+#     generation. Here set to false.
+# ===============================================
 
 name: Dev branch validations
 
