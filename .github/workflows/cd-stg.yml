@@ -17,19 +17,19 @@ jobs:
       deployment_env: stg
       image_uri: ghcr.io/${{ github.repository_owner }}/register-ticket-api:${{ github.sha }}
 
-  promote-to-stg-passed:
-    needs: deploy-to-stg
-    runs-on: ubunt-latest
-    permissions:
-      packages: write
+  #promote-to-stg-passed:
+    #needs: deploy-to-stg
+    #runs-on: ubunt-latest
+    #permissions:
+      #packages: write
     
-    steps:
-      - name: Log in Github container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+    #steps:
+      #- name: Log in Github container registry
+        #uses: docker/login-action@v3
+        #with:
+          #registry: ghcr.io
+          #username: ${{ github.actor }}
+          #password: ${{ secrets.GITHUB_TOKEN }}
       
       #- name: Tag as stg-passed
         #run: |
