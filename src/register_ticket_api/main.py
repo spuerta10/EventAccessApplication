@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 
 from register_ticket_api.controllers import TicketsController
@@ -18,4 +20,4 @@ app.include_router(tickets_controller.router)
 if __name__ == "__main__":  # pragma: no cover
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)  # noqa S104
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8080")))  # noqa S104
