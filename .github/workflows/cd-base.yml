@@ -74,7 +74,7 @@ jobs:
         run: |
           # if something fails stop
           set -e 
-          for file in $(ls src/db/scripts*.sql | sort -V); do
+          for file in $(ls src/db/scripts/*.sql | sort -V); do
             echo "> Executing: $file"
             psql -h ${{ steps.db.outputs.public_ip }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} -f "$file" -v ON_ERROR_STOP=1
           done
