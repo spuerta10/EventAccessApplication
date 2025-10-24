@@ -15,7 +15,7 @@ jobs:
     secrets: inherit # pragma: allowlist secret
     with:
       deployment_env: stg
-      image_uri: ghcr.io/${{ github.repository_owner }}/register-ticket-api:${{ github.sha }}
+      image_uri: ghcr.io/${{ github.repository_owner }}/register-ticket-api:latest
 
   #promote-to-stg-passed:
     #needs: deploy-to-stg
