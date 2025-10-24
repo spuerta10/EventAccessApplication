@@ -25,12 +25,6 @@ variable "environment" {
     type = string
 }
 
-# --- artifact registry vars ---
-
-variable "registry_id" {
-    type=string
-}
-
 # --- database vars ---
 
 variable "db_user" {
