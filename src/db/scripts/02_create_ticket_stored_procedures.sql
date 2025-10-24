@@ -1,4 +1,4 @@
-\c event_access;
+\c :DB_NAME;
 
 CREATE OR REPLACE PROCEDURE sp_register_ticket_to_user(
     p_ticket_id UUID,

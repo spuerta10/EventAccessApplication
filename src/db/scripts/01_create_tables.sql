@@ -1,4 +1,4 @@
-\c event_access;
+\c :DB_NAME;
 
 CREATE TABLE users (
     user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

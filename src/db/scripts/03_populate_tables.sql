@@ -1,6 +1,6 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-\c event_access;
+\c :DB_NAME;
 
 INSERT INTO users (username, password_hash)
 VALUES 
