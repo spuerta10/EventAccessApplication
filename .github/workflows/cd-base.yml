@@ -67,8 +67,10 @@ jobs:
 
           echo "table_exist=$TABLE_EXISTS" >> $GITHUB_OUTPUT
 
-      - name: Create tables & populate (tickets table not existent)
+      - name: Create tables and populate (tickets table not existent)
         if: steps.check_tables.outputs.table_exist == 'f'
+        run: echo ""
       
       - name: Skipped table creation (existent tickets table)
-        if: steps.check_tables.outputs.tables_exist == 't'
+        if: steps.check_tables.outputs.table_exist == 't'
+        run: echo ""
